@@ -1,6 +1,6 @@
 import { getRepository } from 'typeorm';
 import { compare } from 'bcryptjs';
-import { sign } from 'jsonwebtoken';
+import { sign } from 'jsonwebtoken'; // "sing" Criar um token
 import User from '../models/User';
 import configAuth from '../config/auth';
 
@@ -27,6 +27,7 @@ class CreateAuthenticateService {
     if (!passwordMatched) {
       throw new Error('Incorrect email/password combination');
     }
+
     const { expiresIn, secret } = configAuth.jwt;
     const token = sign({}, secret, {
       subject: user.id,

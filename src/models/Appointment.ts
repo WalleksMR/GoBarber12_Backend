@@ -16,7 +16,7 @@ class Appointment {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  /* Quando se tem um relacionamento, deve criar a column e o object que e relacionado com a column */
+  /* Quando se tem um relacionamento, deve criar a column e o object que é relacionado com a column */
   /*
    ** Um para Um (OneToOne)
    ** Um para Muitos(OneToMany)
