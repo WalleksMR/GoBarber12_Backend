@@ -3,6 +3,7 @@ import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken'; // "sing" Criar um token
 import User from '../models/User';
 import configAuth from '../config/auth';
+import AppError from '../errors/AppError';
 
 interface Request {
   email: string;
@@ -20,12 +21,12 @@ class CreateAuthenticateService {
     const user = await users.findOne({ where: { email } });
 
     if (!user) {
-      throw new Error('Incorrect email/password combination.');
+      throw new AppError('Incorrect email/password combination.', 401);
     }
 
     const passwordMatched = await compare(password, user.password);
     if (!passwordMatched) {
-      throw new Error('Incorrect email/password combination');
+      throw new AppError('Incorrect email/password combination', 401);
     }
 
     const { expiresIn, secret } = configAuth.jwt;

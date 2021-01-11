@@ -18,24 +18,20 @@ appointmentsRoutes.get('/', async (request, response) => {
 });
 
 appointmentsRoutes.post('/', async (request, response) => {
-  try {
-    const { provider_id, date } = request.body;
-    // Convertando string para Data
-    const parsedDate = parseISO(date);
+  const { provider_id, date } = request.body;
+  // Convertando string para Data
+  const parsedDate = parseISO(date);
 
-    // Regra de negocio
-    const createAppointment = new CreateAppointmentService();
+  // Regra de negocio
+  const createAppointment = new CreateAppointmentService();
 
-    // Executa a criacao do agendamento
-    const appointment = await createAppointment.execute({
-      provider_id,
-      date: parsedDate,
-    });
+  // Executa a criacao do agendamento
+  const appointment = await createAppointment.execute({
+    provider_id,
+    date: parsedDate,
+  });
 
-    return response.json(appointment);
-  } catch (err) {
-    return response.status(400).json({ error: err.message });
-  }
+  return response.json(appointment);
 });
 
 export default appointmentsRoutes;
